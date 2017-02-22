@@ -13,10 +13,9 @@ nexus_container=nexus
 base_do_init=0
 source $devops_prj_path/base.sh
 
-function run_nexus() {
+function run() {
     local data_path='/opt/data/nexus'
     ensure_dir "$data_path"
-    run_cmd "chmod a+w $data_path"
 
     local args='--restart=always'
     args="$args --dns=8.8.8.8"
@@ -25,13 +24,13 @@ function run_nexus() {
     run_cmd "docker run -d $args -h $nexus_container --name $nexus_container $nexus_image"
 }
 
-function stop_nexus() {
+function stop() {
     stop_container $nexus_container
 }
 
-function restart_nexus() {
-    stop_nexus
-    run_nexus
+function restart() {
+    stop
+    run
 }
 
 function help() {
@@ -41,14 +40,14 @@ function help() {
             
         Valid options are:
 
-            run_nexus
-            stop_nexus
-            restart_nexus
+            run
+            stop
+            restart
             
             help                      show this help message and exit
 
 EOF
 }
-ALL_COMMANDS="run_nexus stop_nexus restart_nexus"
+ALL_COMMANDS="run stop restart"
 list_contains ALL_COMMANDS "$action" || action=help
 $action "$@"

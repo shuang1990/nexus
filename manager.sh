@@ -18,8 +18,8 @@ function run() {
     ensure_dir "$data_path"
 
     local args='--restart=always'
-    args="$args --dns=8.8.8.8"
     args="$args -p 11681:8081"
+    args="$args -p 11682:8082"
     args="$args -v $data_path:/nexus-data"
     run_cmd "docker run -d $args -h $nexus_container --name $nexus_container $nexus_image"
 }

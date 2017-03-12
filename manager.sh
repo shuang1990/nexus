@@ -20,6 +20,7 @@ function run() {
     local args='--restart=always'
     args="$args -p 11681:8081"
     args="$args -p 11682:8082"
+    args="$args -p 11683:8083"
     args="$args -v $data_path:/nexus-data"
     run_cmd "docker run -d $args -h $nexus_container --name $nexus_container $nexus_image"
 }

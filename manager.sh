@@ -16,6 +16,7 @@ source $devops_prj_path/base.sh
 function run() {
     local data_path='/opt/data/nexus'
     ensure_dir "$data_path"
+    run_cmd "chmod 777 $data_path"
 
     local args='--restart=always'
     args="$args -p 11681:8081"
